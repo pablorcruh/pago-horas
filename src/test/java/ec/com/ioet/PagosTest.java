@@ -1,11 +1,10 @@
 package ec.com.ioet;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import ec.com.ioet.model.WorkInfo;
 import ec.com.ioet.utils.Utils;
 
 public class PagosTest {
@@ -17,9 +16,15 @@ public class PagosTest {
 	
 	@Test
 	public void parseInput() {
-		String[] result = Utils.parse(inputData);
-		assertEquals(4, result.length);
+		WorkInfo result = Utils.parse(inputData);
+		assertEquals("RENE", result.getName());
+		assertEquals("MO", result.getWorkload().get(0).getDay());
+		assertEquals("10:00", result.getWorkload().get(0).getStartTime());
+		assertEquals("12:00", result.getWorkload().get(0).getStopTime());
+		
 	}
+	
+	
 	
 
 }
