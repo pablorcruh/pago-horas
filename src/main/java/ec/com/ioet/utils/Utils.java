@@ -8,31 +8,25 @@ import ec.com.ioet.model.Workload;
 
 public class Utils {
 
-	public static WorkInfo parse(String inputData) 
+	public static Workload parse(String inputData) 
 	{
-		WorkInfo workInfo = new WorkInfo();
+		Workload workload = new Workload();
 		try {
-			String[] resultName = inputData.split("=");
-			String[] resultDay = resultName[1].split("(?<=\\G..)");
-			String[] resultEntryHours = resultName[1].split("[A-Z]{2}");
+			String[] resultDay = inputData.split("(?<=\\G..)");
+			String[] resultEntryHours = inputData.split("[A-Z]{2}");
 			String[] resultHours = resultEntryHours[1].split("-");
-			
 			List<Workload> workLoadList=new ArrayList<Workload>();
-			Workload workload = new Workload();
-			
 			workload.setDay(resultDay[0]);
 			workload.setStartTime(resultHours[0]);
 			workload.setStopTime(resultHours[1]);
-			workInfo.setName(resultName[0]);
 			workLoadList.add(workload);
-			workInfo.setWorkload(workLoadList);
-			return workInfo;
+			return workload;
 		}
 		
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}		
-		return workInfo;
+		return workload;
 	}
 
 	
@@ -40,5 +34,18 @@ public class Utils {
 		for(String aux:arr) {
 			System.out.println(aux+" ");;
 		}
+	}
+	
+	public static WorkInfo parseMultipleInput(String input) {
+		WorkInfo workInfo = new WorkInfo();
+		List<Workload> listWorkLoad=new ArrayList<Workload>();
+		String[] resultName = input.split("=");
+		String[] resultWorkDay = resultName[1].split(",");
+		for(int i=0; i<resultWorkDay.length; i++) {
+			listWorkLoad.add(parse(resultWorkDay[i]));
+		}
+		workInfo.setName(resultName[0]);
+		workInfo.setWorkload(listWorkLoad);
+		return workInfo;
 	}
 }
