@@ -15,19 +15,8 @@ public class PagosTest {
 	String inputData = "MO10:00-12:00";
 	
 	String inputData1 = "RENE=MO10:00-12:00,TU10:00-12:00";
-	String hour1 = "10:00";
-    String hour2 = "12:00";
-    
-    String hour3 = "01:00";
-    String hour4 = "03:00";
-    
-    String hour5 = "14:00";
-    String hour6 = "18:00";
-    
-    String hour7 = "20:00";
-    String hour8 = "21:00";
-    
-    
+	
+    Workload workload =new Workload("SU","20:00","21:00");
 	
 	@Test
 	public void parseInput() {
@@ -46,15 +35,15 @@ public class PagosTest {
 	
 	@Test
 	public void calculateHours( ) {
-		int result = Utils.calculateHours(hour5, hour6);
-		assertEquals(4,result);
+		int result = Utils.calculateHours(workload);
+		assertEquals(1,result);
 		
 	}
 	
 	@Test
 	public void chooseTimeLine() {
-		String result = Utils.chooseTimeLine(hour7, hour8);
-		assertEquals("Franja 3", result);
+		int result = Utils.chooseTimeLine(workload);
+		assertEquals(25, result);
 	}
 	
 

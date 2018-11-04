@@ -53,12 +53,12 @@ public class Utils {
 		return workInfo;
 	}
 	
-	public static int calculateHours(String txtLowerTime, String txtGreaterTime) {
-		String [] lowerResult = txtLowerTime.split(":");
+	public static int calculateHours(Workload workload) {
+		String [] lowerResult = workload.getStartTime().split(":");
 		int lowerHour = Integer.parseInt(lowerResult[0]);
 		int lowerMinutes = Integer.parseInt(lowerResult[1]);
 		
-		String [] greaterResult = txtGreaterTime.split(":");
+		String [] greaterResult = workload.getStopTime().split(":");
 		int greaterHour = Integer.parseInt(greaterResult[0]);
 		int greaterMinutes = Integer.parseInt(greaterResult[1]);
 		
@@ -70,10 +70,14 @@ public class Utils {
 		return format.parse(input).getTime(); 
 	}
 	
-	public static String chooseTimeLine(String txtLoweTime,String txtGreaterTime) {
+	public static int chooseTimeLine(Workload workload) {
 		try {
-			long lowerTime = formatDateTime(txtLoweTime);
-			long greaterTime = formatDateTime(txtGreaterTime);
+			int compensation =0;
+			if(workload.getDay().equals(Constants.SATURDAY)|| workload.getDay().equals(Constants.SUNDAY)) {
+				compensation = 5;
+			}
+			long lowerTime = formatDateTime(workload.getStartTime());
+			long greaterTime = formatDateTime(workload.getStopTime());
 			long zero = formatDateTime(Constants.STARTING_ZERO);
 			long zeroPlusOne = formatDateTime(Constants.ZERO_PLUS_ONE);
 			long nine = formatDateTime(Constants.STARTING_NINE);
@@ -81,23 +85,21 @@ public class Utils {
 			long eighteen = formatDateTime(Constants.STARTING_EIGHTEEN);
 			long eighteenPlusOne = formatDateTime(Constants.EIGHTEEN_PLUS_ONE);
 			
-			if(zeroPlusOne < lowerTime && lowerTime < nine ) {
-				return "Franja 1";
-			}else if(ninePlusOne < lowerTime && lowerTime < eighteen) {
-				return "Franja 2";
-			}else if(eighteenPlusOne < lowerTime && lowerTime < zero) {
-				return "Franja 3";
+			if(zeroPlusOne < lowerTime && greaterTime <= nine  ) {
+				return Constants.PAY_1 +compensation;
+			}else if(ninePlusOne < lowerTime && greaterTime <= eighteen) {
+				return Constants.PAY_2 +compensation;
+			}else if(eighteenPlusOne < lowerTime && greaterTime <= zero) {
+				return Constants.PAY_3 +compensation;
 			}else {
-				return "ningun caso";
+				return 0;
 			}
-			
-			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return 0;
 	}
 	
 }
