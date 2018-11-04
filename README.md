@@ -5,6 +5,8 @@
 This project present a solution to a determine how much to pay to a person for his billable hours according to a
 the day of the week and the hour in the day
 
+The project is a maven project and uses junit 4.8.1 to run unit tests.
+
 The solution is staged in different packages, each package contains the foundantion for the solution.
 
 The package **constants** contains global values used on the solution.
@@ -30,7 +32,12 @@ We need to clean the project and download all the dependencies.
     
     mvn install
     
-    mvn exec:java -Dexec.mainClass="ec.com.ioet.start.Main" -Dexec.args="input1.txt"
 ```
 
+To execute the project we need to specify the path to the input file 
+
+
+```
+    mvn exec:java -Dexec.mainClass="ec.com.ioet.start.Main" -Dexec.args="input1.txt"
+```
 
