@@ -7,15 +7,15 @@ the day of the week and the hour in the day
 
 The solution is staged in different packages, each package contains the foundantion for the solution.
 
-The package --constants-- contains global values used on the solution.
+The package **constants** contains global values used on the solution.
 
-The package --model-- contains classes to represent the workload in a day and the workinfo on the worker.
+The package **model** contains classes to represent the workload in a day and the workinfo on the worker.
 
-The package --start-- constains the main class which uses all the logic to solve the problem.
+The package **start** constains the main class which uses all the logic to solve the problem.
 
-The package --service-- contains the interfaces which represent the business logic.
+The package **service** contains the interfaces which represent the business logic.
 
-The package --impl-- contains the implementation of the logic as the interface contract states.
+The package **impl** contains the implementation of the logic as the interface contract states.
 
 The solution uses Circle CI as integration server to run the test suite.
 
